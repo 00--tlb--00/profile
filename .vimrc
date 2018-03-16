@@ -1,7 +1,7 @@
 syntax on
 syntax enable
+colorscheme badwolf
 set tw=78
-set ts=4
 " 1 tab == 4 spaces
 " when using the >> or << commands, shift lines by 4 spaces
 set tabstop=4
