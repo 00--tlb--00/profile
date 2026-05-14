@@ -1,5 +1,5 @@
 " ============================================
-" BASIC
+" BASE
 " ============================================
 
 set nocompatible
@@ -16,29 +16,87 @@ set termguicolors
 set background=dark
 
 " ============================================
-" COLORS
+" PLUGINS (MINIMAL + SAFE)
 " ============================================
 
-" fallback if plugin not installed yet
-silent! colorscheme evening
-silent! colorscheme badwolf
+call plug#begin('~/.vim/plugged')
+
+" lightweight python completion
+Plug 'davidhalter/jedi-vim'
+
+" fuzzy finder
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+
+" editing helpers
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-commentary'
+
+" git
+Plug 'tpope/vim-fugitive'
+
+call plug#end()
 
 " ============================================
-" TABS / INDENTATION
+" GHOSTTY BASE UI (NO BACKGROUND THEMES)
 " ============================================
 
-set expandtab
-set smartindent
-set autoindent
+set number
+set nocursorline
+set nocursorcolumn
+set nolist
 
-set tabstop=4
-set shiftwidth=4
-set softtabstop=4
+" HARD BASE BACKGROUND (prevents white/gray bands)
+highlight Normal guibg=#1e1f22 guifg=#c5c5c5
+highlight NonText guibg=#1e1f22 guifg=#3a3a3a
+highlight EndOfBuffer guibg=#1e1f22 guifg=#1e1f22
+highlight SignColumn guibg=#1e1f22
 
-" common alt:
-" 2 spaces for js/web:
-" autocmd FileType javascript,typescript,html,css,json,yaml
-"       \ setlocal tabstop=2 shiftwidth=2 softtabstop=2
+" line numbers
+highlight LineNr guifg=#666666 guibg=#1e1f22
+highlight CursorLineNr guifg=#c7a46c guibg=#1e1f22 gui=bold
+
+" selection
+highlight Visual guibg=#3a3f44 guifg=NONE
+
+" popup menu
+highlight Pmenu guibg=#262a2e guifg=#c5c5c5
+highlight PmenuSel guibg=#3a3f44 guifg=#ffffff
+
+" splits
+highlight VertSplit guifg=#2a2a2a guibg=#1e1f22
+
+" ============================================
+" 🔥 NUCLEAR FIX: REMOVE ALL BACKGROUND SYNTAX
+" ============================================
+
+" kill ALL default syntax backgrounds
+highlight clear Comment
+highlight clear Constant
+highlight clear Identifier
+highlight clear Statement
+highlight clear PreProc
+highlight clear Type
+highlight clear Special
+highlight clear Underlined
+highlight clear Todo
+highlight clear Error
+
+" re-apply ONLY foreground colors (NO BG EVER)
+highlight Comment    guifg=#6a6a6a guibg=NONE
+highlight Constant   guifg=#c5c5c5 guibg=NONE
+highlight Identifier guifg=#c5c5c5 guibg=NONE
+highlight Statement  guifg=#7f9bb3 guibg=NONE
+highlight Type       guifg=#c7a46c guibg=NONE
+highlight Special    guifg=#8aa68a guibg=NONE
+
+" ============================================
+" PYTHON (JEDI LIGHT MODE)
+" ============================================
+
+let g:jedi#completions_enabled = 1
+let g:jedi#auto_initialization = 1
+let g:jedi#show_call_signatures = 1
 
 " ============================================
 " SEARCH
@@ -52,25 +110,19 @@ set hlsearch
 nnoremap <leader>h :nohlsearch<CR>
 
 " ============================================
-" COMMAND COMPLETION
+" COMPLETION
 " ============================================
 
+set completeopt=menuone,noinsert,noselect
 set wildmenu
 set wildmode=longest:full,full
-set wildignore+=*.o,*.obj,*.pyc,node_modules,.git
-
-" better completion popup behavior
-set completeopt=menuone,noinsert,noselect,popup
 
 " ============================================
-" HISTORY / UNDO
+" PERFORMANCE
 " ============================================
 
-set history=1000
-set undofile
-set undodir=~/.vim/undo
-set backupdir=~/.vim/backup
-set directory=~/.vim/swap
+set updatetime=250
+set lazyredraw
 
 " ============================================
 " SPLITS
@@ -88,72 +140,13 @@ let mapleader=" "
 nnoremap <leader>w :w<CR>
 nnoremap <leader>q :q<CR>
 
-" quick buffer nav
 nnoremap <TAB> :bnext<CR>
 nnoremap <S-TAB> :bprevious<CR>
-
-" ============================================
-" PLUGINS
-" ============================================
-
-call plug#begin('~/.vim/plugged')
-
-" Colors
-Plug 'sjl/badwolf'
-
-" Fuzzy finder
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
-
-" Status line
-Plug 'itchyny/lightline.vim'
-
-" Git
-Plug 'tpope/vim-fugitive'
-
-" Comments
-Plug 'tpope/vim-commentary'
-
-" Surround editing
-Plug 'tpope/vim-surround'
-
-" Python autocomplete
-Plug 'davidhalter/jedi-vim'
-
-" Better tab completion
-Plug 'ervandew/supertab'
-
-" Syntax
-Plug 'sheerun/vim-polyglot'
-
-call plug#end()
-
-" ============================================
-" LIGHTLINE
-" ============================================
-
-let g:lightline = {
-      \ 'colorscheme': 'wombat',
-      \ }
 
 " ============================================
 " FZF
 " ============================================
 
 nnoremap <leader>f :Files<CR>
-nnoremap <leader>g :GFiles<CR>
 nnoremap <leader>b :Buffers<CR>
 nnoremap <leader>r :Rg<CR>
-
-" ============================================
-" NERDTREE
-" ============================================
-
-nnoremap <leader>n :NERDTreeToggle<CR>
-
-" ============================================
-" PERFORMANCE
-" ============================================
-
-set updatetime=250
-set lazyredraw
