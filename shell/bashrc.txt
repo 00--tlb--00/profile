@@ -1,0 +1,69 @@
+# ============================================
+# PATH
+# ============================================
+export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
+
+# ============================================
+# EDITOR
+# ============================================
+export EDITOR=vim
+export VISUAL=vim
+
+# ============================================
+# HISTORY (strong bash setup)
+# ============================================
+HISTSIZE=50000
+HISTFILESIZE=100000
+HISTFILE=~/.bash_history
+
+shopt -s histappend
+shopt -s cmdhist
+
+export HISTCONTROL=ignoreboth:erasedups
+export HISTTIMEFORMAT="%F %T "
+
+PROMPT_COMMAND="history -a; history -n"
+
+# ============================================
+# BETTER HISTORY SEARCH
+# ============================================
+bind '"\e[A": history-search-backward'
+bind '"\e[B": history-search-forward'
+
+# ============================================
+# PYTHON HELPERS
+# ============================================
+alias py='python3'
+alias pip='pip3'
+alias venv='python3 -m venv .venv'
+alias act='source .venv/bin/activate'
+
+# ============================================
+# BASIC ALIASES
+# ============================================
+alias ls='ls -GFh'
+alias ll='ls -lah'
+alias la='ls -A'
+
+alias rm='rm -i'
+alias cp='cp -i'
+alias mv='mv -i'
+
+alias v='vim'
+alias vi='vim'
+
+alias gs='git status'
+alias ga='git add'
+alias gc='git commit'
+alias gp='git push'
+
+# ============================================
+# GIT BRANCH FOR PROMPT
+# ============================================
+parse_git_branch() {
+  git branch 2>/dev/null | sed -n '/\* /s///p'
+}
+
+# ============================================
+# PROMPT
+#

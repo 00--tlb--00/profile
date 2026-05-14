@@ -1,0 +1,77 @@
+# ============================================
+# PATH (MacPorts first if used)
+# ============================================
+export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
+
+# ============================================
+# EDITOR
+# ============================================
+export EDITOR=vim
+export VISUAL=vim
+
+# ============================================
+# HISTORY (very strong setup)
+# ============================================
+HISTFILE=~/.zsh_history
+HISTSIZE=50000
+SAVEHIST=50000
+
+setopt APPEND_HISTORY
+setopt SHARE_HISTORY
+setopt HIST_IGNORE_DUPS
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_REDUCE_BLANKS
+setopt HIST_VERIFY
+setopt EXTENDED_HISTORY
+
+# Ctrl-R fuzzy-ish history search is built-in in zsh
+
+# ============================================
+# COMPLETION SYSTEM
+# ============================================
+autoload -Uz compinit
+compinit
+
+zstyle ':completion:*' menu select
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+
+# ============================================
+# GIT INFO IN PROMPT
+# ============================================
+autoload -Uz vcs_info
+precmd() { vcs_info }
+
+zstyle ':vcs_info:git:*' formats ' (%b)'
+setopt prompt_subst
+
+# ============================================
+# PYTHON HELPERS
+# ============================================
+alias py='python3'
+alias pip='pip3'
+alias venv='python3 -m venv .venv'
+alias act='source .venv/bin/activate'
+
+# ============================================
+# BASIC ALIASES
+# ============================================
+alias ls='ls -GFh'
+alias ll='ls -lah'
+alias la='ls -A'
+
+alias rm='rm -i'
+alias cp='cp -i'
+alias mv='mv -i'
+
+alias v='vim'
+alias vi='vim'
+
+alias gs='git status'
+alias ga='git add'
+alias gc='git commit'
+alias gp='git push'
+
+# ============================================
+# PROMPT (clean + git branch)
+# ============================================
+PROMPT='%F{green}%n@%m%f %F{blue}%~%f%F{yellow}${vcs_info_msg_0_}%f %# '

@@ -1,0 +1,159 @@
+" ============================================
+" BASIC
+" ============================================
+
+set nocompatible
+filetype plugin indent on
+syntax enable
+
+set encoding=utf-8
+set hidden
+set mouse=a
+set nowrap
+set scrolloff=8
+set signcolumn=yes
+set termguicolors
+set background=dark
+
+" ============================================
+" COLORS
+" ============================================
+
+" fallback if plugin not installed yet
+silent! colorscheme evening
+silent! colorscheme badwolf
+
+" ============================================
+" TABS / INDENTATION
+" ============================================
+
+set expandtab
+set smartindent
+set autoindent
+
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+
+" common alt:
+" 2 spaces for js/web:
+" autocmd FileType javascript,typescript,html,css,json,yaml
+"       \ setlocal tabstop=2 shiftwidth=2 softtabstop=2
+
+" ============================================
+" SEARCH
+" ============================================
+
+set ignorecase
+set smartcase
+set incsearch
+set hlsearch
+
+nnoremap <leader>h :nohlsearch<CR>
+
+" ============================================
+" COMMAND COMPLETION
+" ============================================
+
+set wildmenu
+set wildmode=longest:full,full
+set wildignore+=*.o,*.obj,*.pyc,node_modules,.git
+
+" better completion popup behavior
+set completeopt=menuone,noinsert,noselect,popup
+
+" ============================================
+" HISTORY / UNDO
+" ============================================
+
+set history=1000
+set undofile
+set undodir=~/.vim/undo
+set backupdir=~/.vim/backup
+set directory=~/.vim/swap
+
+" ============================================
+" SPLITS
+" ============================================
+
+set splitbelow
+set splitright
+
+" ============================================
+" KEYMAPS
+" ============================================
+
+let mapleader=" "
+
+nnoremap <leader>w :w<CR>
+nnoremap <leader>q :q<CR>
+
+" quick buffer nav
+nnoremap <TAB> :bnext<CR>
+nnoremap <S-TAB> :bprevious<CR>
+
+" ============================================
+" PLUGINS
+" ============================================
+
+call plug#begin('~/.vim/plugged')
+
+" Colors
+Plug 'sjl/badwolf'
+
+" Fuzzy finder
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+
+" Status line
+Plug 'itchyny/lightline.vim'
+
+" Git
+Plug 'tpope/vim-fugitive'
+
+" Comments
+Plug 'tpope/vim-commentary'
+
+" Surround editing
+Plug 'tpope/vim-surround'
+
+" Python autocomplete
+Plug 'davidhalter/jedi-vim'
+
+" Better tab completion
+Plug 'ervandew/supertab'
+
+" Syntax
+Plug 'sheerun/vim-polyglot'
+
+call plug#end()
+
+" ============================================
+" LIGHTLINE
+" ============================================
+
+let g:lightline = {
+      \ 'colorscheme': 'wombat',
+      \ }
+
+" ============================================
+" FZF
+" ============================================
+
+nnoremap <leader>f :Files<CR>
+nnoremap <leader>g :GFiles<CR>
+nnoremap <leader>b :Buffers<CR>
+nnoremap <leader>r :Rg<CR>
+
+" ============================================
+" NERDTREE
+" ============================================
+
+nnoremap <leader>n :NERDTreeToggle<CR>
+
+" ============================================
+" PERFORMANCE
+" ============================================
+
+set updatetime=250
+set lazyredraw
