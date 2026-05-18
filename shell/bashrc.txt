@@ -1,5 +1,8 @@
 export EDITOR=vim
 export VISUAL=vim
+export PATH="$HOME/.pyenv/bin:$PATH"
+eval "$(pyenv init --path)"
+eval "$(pyenv virtualenv-init -)"
 
 export HISTFILE="$HOME/.bash_history"
 export HISTSIZE=50000
@@ -27,6 +30,8 @@ alias gs='git status'
 alias ga='git add'
 alias gc='git commit'
 alias gp='git push'
+
+
 
 parse_git_branch() {
   git branch 2>/dev/null | sed -n '/\* /s///p'

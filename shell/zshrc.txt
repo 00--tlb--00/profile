@@ -71,6 +71,7 @@ alias ga='git add'
 alias gc='git commit'
 alias gp='git push'
 
+export be3='enwdcocd-cbo-tools-be-03.netops.charter.com'
 # ============================================
 # PROMPT (clean + git branch)
 # ============================================
