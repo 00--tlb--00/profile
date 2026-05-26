@@ -1,4 +1,9 @@
 " ============================================
+" REQUIREMENTS
+" ============================================
+" sudo pip install pep8 flake8 pyflakes isort yapf
+
+" ============================================
 " BASE
 " ============================================
 
@@ -8,7 +13,7 @@ syntax enable
 
 set encoding=utf-8
 set hidden
-set mouse=a
+set mouse=
 set nowrap
 set scrolloff=8
 set signcolumn=yes
@@ -97,6 +102,14 @@ highlight Special    guifg=#8aa68a guibg=NONE
 let g:jedi#completions_enabled = 1
 let g:jedi#auto_initialization = 1
 let g:jedi#show_call_signatures = 1
+
+" ============================================
+" PYTHON CHECKERS
+" ============================================
+" python checkers: flake8, pyflakes, pylint, python
+" let g:syntastic_python_checkers = ['flake8', 'pyflakes', 'python']
+let g:syntastic_python_checkers = ['flake8', 'pyflakes', 'python3']
+let g:syntastic_python_flake8_args = '--ignore=E501'
 
 " ============================================
 " SEARCH
